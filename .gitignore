@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Build outputs
+# ---------------------------------------------------------------------------
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+CMakeUserPresets.json
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# Object/binary files in case anyone ever builds in-tree
+*.o
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.a
+
+# ---------------------------------------------------------------------------
+# Editors / IDEs
+# ---------------------------------------------------------------------------
+# Keep the curated .vscode/ tasks/launch/c_cpp_properties checked in, but
+# ignore the per-user/IDE-generated bits.
+.vs/
+.vscode/*.log
+*.code-workspace
+
+# Visual Studio
+*.user
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+.vs/
+
+# Qt Creator
+*.pro.user*
+*.pro.user.*
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Claude Code per-project settings (permissions, etc.) - local only
+.claude/
+
+# ---------------------------------------------------------------------------
+# OS junk
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

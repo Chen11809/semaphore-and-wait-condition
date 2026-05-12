@@ -1,0 +1,65 @@
+// ---------------------------------------------------------------------------
+// .vscode/tasks.json
+//
+// Two CMake tasks plus a default build task. Run them from the Command
+// Palette via "Tasks: Run Task", or hit Ctrl+Shift+B to fire the default
+// build (which depends on configure, so a fresh checkout builds in one
+// keypress).
+//
+// If you have the CMake Tools extension installed, you can also just use
+// its built-in "CMake: Configure" and "CMake: Build" commands and ignore
+// this file - it exists so the project also works WITHOUT that extension,
+// as long as `cmake` is on PATH.
+// ---------------------------------------------------------------------------
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S", "${workspaceFolder}",
+                "-B", "${workspaceFolder}/build"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "CMake: build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build",
+                "--config", "Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // Make sure the build tree exists before we try to build it.
+            "dependsOn": ["CMake: configure"],
+            "problemMatcher": [
+                "$msCompile",
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "CMake: clean",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build",
+                "--target", "clean"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

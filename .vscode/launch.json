@@ -1,0 +1,66 @@
+// ---------------------------------------------------------------------------
+// .vscode/launch.json
+//
+// Two debug configurations - one per CLI flag. Pick the one you want from
+// the "Run and Debug" sidebar (Ctrl+Shift+D) and press F5.
+//
+// Both configs run the "CMake: build" task first (defined in tasks.json),
+// so a fresh edit-and-F5 round-trip rebuilds automatically.
+//
+// The 'program' path assumes the MSVC multi-config layout
+// (build/Debug/<exe>.exe). If you configured with a single-config generator
+// like Ninja or MinGW, drop the "Debug/" segment, or - if you have the
+// CMake Tools extension - replace 'program' with
+// "${command:cmake.launchTargetPath}" to have it resolved dynamically.
+//
+// 'type' is set to:
+//   * cppvsdbg  - the Visual Studio debugger (Windows / MSVC).
+//   * cppdbg    - the MIEngine front-end for gdb/lldb (use with MinGW or
+//                 Clang). Switch the "type" field below if needed.
+// ---------------------------------------------------------------------------
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run --wait-condition (MSVC)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/semaphore_and_wait_condition.exe",
+            "args": ["--wait-condition"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "preLaunchTask": "CMake: build"
+        },
+        {
+            "name": "Run --semaphore (MSVC)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/semaphore_and_wait_condition.exe",
+            "args": ["--semaphore"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "preLaunchTask": "CMake: build"
+        },
+        {
+            // Convenience config that asks CMake Tools for the current
+            // target path - works regardless of generator (Ninja, MSVC,
+            // MinGW) but requires the CMake Tools extension.
+            "name": "Run --wait-condition (CMake Tools)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": ["--wait-condition"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Run --semaphore (CMake Tools)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            "args": ["--semaphore"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

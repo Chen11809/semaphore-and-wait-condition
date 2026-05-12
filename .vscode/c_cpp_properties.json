@@ -1,0 +1,43 @@
+// ---------------------------------------------------------------------------
+// .vscode/c_cpp_properties.json
+//
+// Tells the Microsoft C/C++ extension (ms-vscode.cpptools) two things:
+//
+//   1. configurationProvider: "ms-vscode.cmake-tools"
+//      Defer to the CMake Tools extension for include paths, defines and
+//      the C++ standard. This is the cleanest setup: whatever CMake says
+//      the compile flags are, IntelliSense uses. Requires the CMake Tools
+//      extension to be installed and the project to be configured at
+//      least once.
+//
+//   2. cppStandard: "c++20"
+//      Fallback used when CMake Tools is NOT installed or hasn't yet
+//      configured the project. Without this, IntelliSense defaults to
+//      C++17 on Windows and underlines <semaphore> / std::counting_semaphore
+//      as unknown.
+//
+// compileCommands also points at the build folder's compile_commands.json
+// (generated because CMakeLists.txt sets CMAKE_EXPORT_COMPILE_COMMANDS).
+// That gives clangd users an authoritative database too.
+// ---------------------------------------------------------------------------
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "windows-msvc-x64",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+        }
+    ]
+}
