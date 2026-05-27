@@ -40,6 +40,7 @@ add_executable(semaphore_and_wait_condition
     main.cpp
     wait_condition.cpp
     semaphore.cpp
+    atomic.cpp
 )
 
 target_link_libraries(semaphore_and_wait_condition

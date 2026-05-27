@@ -3,8 +3,9 @@
 A small teaching project that reimplements the Qt
 [Wait Conditions producer/consumer example][qt-example]
 using only the C++ standard library — no Qt — and shows the same problem
-solved a second way with `std::counting_semaphore`. The two versions live
-side-by-side in one executable so they are easy to compare.
+solved two more ways: with `std::counting_semaphore`, and lock-free with
+just `std::atomic`. The three versions live side-by-side in one
+executable so they are easy to compare.
 
 [qt-example]: https://doc.qt.io/qt-6/qtcore-threads-waitconditions-example.html
 
@@ -14,9 +15,10 @@ side-by-side in one executable so they are easy to compare.
 | --------------- | -------------------------------------------------- | ----------------------- |
 | Wait condition  | `std::mutex` + `std::condition_variable` (×2)      | `wait_condition.cpp`    |
 | Semaphore       | `std::counting_semaphore` (×2), no mutex needed    | `semaphore.cpp`         |
+| Atomic          | `std::atomic<uint64_t>` (×2) + `wait`/`notify`     | `atomic.cpp`            |
 
-Both implementations are a single-producer / single-consumer bounded ring
-buffer filled with random ACGT bytes and drained to `stderr`.
+All three implementations are a single-producer / single-consumer bounded
+ring buffer filled with random ACGT bytes and drained to `stderr`.
 
 A direct Qt → std mapping table is embedded as comments in
 `wait_condition.cpp`.
@@ -62,6 +64,7 @@ friends resolve correctly.
 ```text
 semaphore_and_wait_condition --wait-condition
 semaphore_and_wait_condition --semaphore
+semaphore_and_wait_condition --atomic
 semaphore_and_wait_condition                    # prints usage, exits 1
 ```
 
@@ -80,6 +83,8 @@ source file and rebuild — both versions should still print exactly
 ├── wait_condition.cpp      std::mutex + std::condition_variable port
 ├── semaphore.h             runSemaphore()
 ├── semaphore.cpp           std::counting_semaphore version
+├── atomic.h                runAtomic()
+├── atomic.cpp              lock-free SPSC ring buffer (std::atomic only)
 ├── .vscode/
 │   ├── tasks.json
 │   ├── launch.json

@@ -1,19 +1,21 @@
 // ---------------------------------------------------------------------------
 // main.cpp
 //
-// Tiny CLI dispatcher. Picks between the two producer/consumer
+// Tiny CLI dispatcher. Picks between the three producer/consumer
 // implementations based on argv:
 //
 //   semaphore_and_wait_condition --wait-condition
 //   semaphore_and_wait_condition --semaphore
+//   semaphore_and_wait_condition --atomic
 //
 // Anything else (no argument, unknown argument, multiple arguments) prints
 // a usage line to stderr and exits with status 1.
 //
-// The interesting code lives in wait_condition.cpp / semaphore.cpp; this
-// file is intentionally trivial.
+// The interesting code lives in wait_condition.cpp / semaphore.cpp /
+// atomic.cpp; this file is intentionally trivial.
 // ---------------------------------------------------------------------------
 
+#include "atomic.h"
 #include "semaphore.h"
 #include "wait_condition.h"
 
@@ -30,7 +32,7 @@ void printUsage(const char *programName)
     const char *name = (programName && *programName) ? programName
                                                      : "semaphore_and_wait_condition";
     std::fprintf(stderr,
-                 "usage: %s (--semaphore | --wait-condition)\n",
+                 "usage: %s (--semaphore | --wait-condition | --atomic)\n",
                  name);
 }
 
@@ -52,6 +54,10 @@ int main(int argc, char *argv[])
     }
     if (std::strcmp(arg, "--semaphore") == 0) {
         runSemaphore();
+        return 0;
+    }
+    if (std::strcmp(arg, "--atomic") == 0) {
+        runAtomic();
         return 0;
     }
 
