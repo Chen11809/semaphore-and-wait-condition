@@ -1,4 +1,4 @@
-# semaphore-and-wait-condition
+# semaphore-wait-conditions-atomic-vars
 
 A small teaching project that reimplements the Qt
 [Wait Conditions producer/consumer example][qt-example]
